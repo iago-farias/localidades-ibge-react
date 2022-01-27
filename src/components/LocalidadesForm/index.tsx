@@ -2,8 +2,12 @@ import { useState, useEffect } from 'react';
 import { Box, Flex, FormControl, FormLabel, Select} from '@chakra-ui/react';
 import { Estado, Municipio } from '../../types';
 import api from '../../services/ibgeApi';
+import { useAppDispatch } from '../../app/hooks';
+import { clearMunicipio, fetchMunicipioData } from './localidadeSlice';
 
 function LocalidadesForm(){
+  const dispatch = useAppDispatch();
+
   const [estados, setEstados] = useState<Estado[]>([]); 
   const [municipios, setMunicipios] = useState<Municipio[]>([]);
   const [selectedEstado, setSelectedEstado] = useState<String>();
@@ -36,6 +40,11 @@ function LocalidadesForm(){
     getMunicipios();
   }, [selectedEstado]);
 
+  function onChangeEstado(siglaUF : string){
+    setSelectedEstado(siglaUF);
+    dispatch(clearMunicipio());
+  }
+
   return(
     <Box>
       <Flex
@@ -47,7 +56,7 @@ function LocalidadesForm(){
             id='uf'
             placeholder='Selecione um estado'
             disabled={isLoading}
-            onChange={e => setSelectedEstado(e.target.value)}
+            onChange={e => onChangeEstado(e.target.value)}
           >
             {
               estados.map(estado => (
@@ -65,6 +74,7 @@ function LocalidadesForm(){
             id='municipio'
             placeholder='Selecione um município'
             disabled={selectedEstado === undefined || isLoading}
+            onChange={e => dispatch(fetchMunicipioData(e.target.value))}
           >
             {
               municipios.map(municipio => (

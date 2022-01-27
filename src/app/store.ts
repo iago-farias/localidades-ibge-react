@@ -1,7 +1,9 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import localidadeSlice from '../components/LocalidadesForm/localidadeSlice';
 
 export const store = configureStore({
   reducer: {
+    localidade: localidadeSlice
   },
 });
 
