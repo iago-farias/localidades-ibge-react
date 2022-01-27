@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Flex, FormControl, FormLabel, Select} from '@chakra-ui/react';
+import { Box, HStack, FormControl, FormLabel, Select} from '@chakra-ui/react';
 import { Estado, Municipio } from '../../types';
 import api from '../../services/ibgeApi';
 import { useAppDispatch } from '../../app/hooks';
@@ -47,8 +47,9 @@ function LocalidadesForm(){
 
   return(
     <Box>
-      <Flex
+      <HStack
         flexDirection={['column', 'row']}
+        spacing={[0,8]}
       >
         <FormControl>
           <FormLabel htmlFor='uf'>Estado</FormLabel>
@@ -66,10 +67,8 @@ function LocalidadesForm(){
           </Select>
         </FormControl>
 
-        <FormControl
-          mt={[8,0]}
-        >
-          <FormLabel htmlFor='municipio'>Município</FormLabel>
+        <FormControl>
+          <FormLabel htmlFor='municipio' mt={[4,0]}>Município</FormLabel>
           <Select
             id='municipio'
             placeholder='Selecione um município'
@@ -83,7 +82,7 @@ function LocalidadesForm(){
             }
           </Select>
         </FormControl>
-      </Flex>
+      </HStack>
     </Box>
   );
 }

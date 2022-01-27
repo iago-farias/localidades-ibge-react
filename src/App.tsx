@@ -1,8 +1,12 @@
-import {Box, Heading} from '@chakra-ui/react';
+import {Box, Button, Flex, Heading, useColorMode, useColorModeValue} from '@chakra-ui/react';
 import LocalidadeDetail from './components/LocalidadeDetail';
 import LocalidadesForm from './components/LocalidadesForm';
 
 function App() {
+  const {toggleColorMode, colorMode,} = useColorMode();
+
+  const bg = useColorModeValue('gray.100','gray.600'); 
+
   return (
     <Box
       w='100%'
@@ -15,8 +19,17 @@ function App() {
         w={['100%', '80%']}
         margin='0 auto'
       >
+        <Flex
+          justifyContent='flex-end'
+          mb={4}
+        >
+          <Button onClick={toggleColorMode}>
+            {colorMode === 'light' ? 'Dark' : 'Light'} Mode
+          </Button>
+        </Flex>
+
         <Box
-          bg='gray.100'
+          bg={bg}
           p={4}
           borderRadius={4}
         >
@@ -24,7 +37,7 @@ function App() {
         </Box>
 
         <Box
-          bg='gray.100'
+          bg={bg}
           p={4}
           borderRadius={4}
           mt={8}
